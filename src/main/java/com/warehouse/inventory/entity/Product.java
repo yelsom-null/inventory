@@ -1,21 +1,21 @@
 package com.warehouse.inventory.entity;
 
-import com.warehouse.inventory.entity.Inventory;
-import com.warehouse.inventory.entity.Part;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import javafx.collections.ObservableList;
 
-@Entity
-@Table(name = "product")
+@Document(collection = "product")
 public class Product {
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
+
+    @DBRef
     private Inventory inventory;
-    @OneToMany
-    private ObservableList<Part>associatedParts;
+
+    private ObservableList<Part> associatedParts;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
+
     private String name;
     private int price;
     private int stock;
@@ -25,20 +25,15 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, int min, int max){
+    public Product(String id, String name, int min, int max) {
         this.id = id;
         this.name = name;
         this.min = min;
         this.max = max;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public String getName() {
         return name;
@@ -80,15 +75,11 @@ public class Product {
         this.max = max;
     }
 
-    public void addAssociatedPart(Part newPart){
-        associatedParts.add(newPart);
-    }
-    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
-        if(associatedParts.contains(selectedAssociatedPart));
-       return true;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public ObservableList<Part> getAllAssociatedParts(){
-        return associatedParts;
+    public String getId() {
+        return id;
     }
 }

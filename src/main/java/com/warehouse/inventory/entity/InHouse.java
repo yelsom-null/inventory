@@ -1,11 +1,9 @@
 package com.warehouse.inventory.entity;
 
-import com.warehouse.inventory.entity.Part;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "inhouse_parts")
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "inhouse_parts")
 public class InHouse extends Part {
 
     private int machineId;

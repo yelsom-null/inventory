@@ -1,26 +1,18 @@
-package com.warehouse.inventory.entity; /**
-* Supplied class Part.java 
- */
+package com.warehouse.inventory.entity;
 
-import com.warehouse.inventory.entity.Inventory;
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- *
- * @author Brent Mosley
- */
-
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "parts")
+@Document(collection = "parts")
 public abstract class Part {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long tableId;
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
+    private String tableId;
+
+    @DBRef
     private Inventory inventory;
+
     private int id;
     private String name;
     private double price;
@@ -39,7 +31,6 @@ public abstract class Part {
         this.min = min;
         this.max = max;
     }
-
     /**
      * @return the id
      */

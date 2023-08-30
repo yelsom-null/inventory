@@ -1,20 +1,18 @@
 package com.warehouse.inventory.entity;
 
-import jakarta.persistence.*;
-import javafx.collections.ObservableList;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "inventories")
+import java.util.List;
+
+@Document(collection = "inventories")
 public class Inventory {
 
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToMany(cascade = CascadeType.ALL)
-    private ObservableList<Part> allParts;
-    @OneToMany(cascade = CascadeType.ALL)
-    private ObservableList<Product>allProducts;
+    private String id;
+    private List<Part> allParts;
+    private List<Product> allProducts;
+
     public Inventory() {
     }
 
@@ -35,7 +33,7 @@ public class Inventory {
      return null;
     }
 
-    public Product lookUpProduct(int productId){
+    public Product lookUpProduct(String productId){
        for(Product product : allProducts){
            if(product.getId() == productId){
                return product;
@@ -81,11 +79,11 @@ public class Inventory {
         return false;
     }
 
-    public ObservableList<Part> getAllParts() {
+    public List<Part> getAllParts() {
         return allParts;
     }
 
-    public ObservableList<Product> getAllProducts() {
+    public List<Product> getAllProducts() {
         return allProducts;
     }
 }
