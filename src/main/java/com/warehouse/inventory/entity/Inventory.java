@@ -1,15 +1,20 @@
-package com.warehouse.inventory;
+package com.warehouse.inventory.entity;
 
+import jakarta.persistence.*;
 import javafx.collections.ObservableList;
 
-import java.util.List;
-
+@Entity
+@Table(name = "inventories")
 public class Inventory {
-    private ObservableList<Part> allParts;
-    private ObservableList<Product>allProducts;
-    private Part part;
-    private Product product;
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToMany(cascade = CascadeType.ALL)
+    private ObservableList<Part> allParts;
+    @OneToMany(cascade = CascadeType.ALL)
+    private ObservableList<Product>allProducts;
     public Inventory() {
     }
 

@@ -1,18 +1,36 @@
-package com.warehouse.inventory; /**
+package com.warehouse.inventory.entity; /**
 * Supplied class Part.java 
  */
+
+import com.warehouse.inventory.entity.Inventory;
+import jakarta.persistence.*;
 
 /**
  *
  * @author Brent Mosley
  */
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "parts")
 public abstract class Part {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long tableId;
+    @ManyToOne
+    @JoinColumn(name = "inventory_id")
+    private Inventory inventory;
     private int id;
     private String name;
     private double price;
     private int stock;
     private int min;
-    private int max;    
+    private int max;
+
+    public Part() {
+    }
+
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = id;
         this.name = name;

@@ -1,9 +1,20 @@
-package com.warehouse.inventory;
+package com.warehouse.inventory.entity;
 
+import com.warehouse.inventory.entity.Inventory;
+import com.warehouse.inventory.entity.Part;
+import jakarta.persistence.*;
 import javafx.collections.ObservableList;
 
+@Entity
+@Table(name = "product")
 public class Product {
+    @ManyToOne
+    @JoinColumn(name = "inventory_id")
+    private Inventory inventory;
+    @OneToMany
     private ObservableList<Part>associatedParts;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private int price;
@@ -11,7 +22,10 @@ public class Product {
     private int min;
     private int max;
 
-    public Product(int id, String name,int min, int max){
+    public Product() {
+    }
+
+    public Product(int id, String name, int min, int max){
         this.id = id;
         this.name = name;
         this.min = min;
